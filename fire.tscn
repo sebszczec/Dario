@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://7xckchc52x3t"]
+[gd_scene load_steps=26 format=3 uid="uid://7xckchc52x3t"]
 
 [ext_resource type="Texture2D" uid="uid://cplnr5tc5otrd" path="res://kenney_particle_pack/fire_01.png" id="1_2s4wx"]
 [ext_resource type="Texture2D" uid="uid://byno2tb054n34" path="res://kenney_particle_pack/trace_03.png" id="1_oa3es"]
@@ -132,14 +132,21 @@ scale_max = 0.05
 scale_curve = SubResource("CurveTexture_xroem")
 color_ramp = SubResource("GradientTexture1D_xer3x")
 
+[sub_resource type="Environment" id="Environment_xhpyo"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 1
+
 [node name="Fire" type="Node2D"]
 
 [node name="Sparks" type="GPUParticles2D" parent="."]
+modulate = Color(8.5, 5, 1, 1)
 process_material = SubResource("ParticleProcessMaterial_rneg1")
 texture = ExtResource("1_oa3es")
 lifetime = 0.45
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Fire1" type="GPUParticles2D" parent="."]
+modulate = Color(3, 1, 1, 1)
 process_material = SubResource("ParticleProcessMaterial_8hbn3")
 texture = ExtResource("1_2s4wx")
 lifetime = 0.3
@@ -149,7 +156,11 @@ process_material = SubResource("ParticleProcessMaterial_a2jjy")
 texture = ExtResource("2_7q0wd")
 lifetime = 0.45
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="Fire2" type="GPUParticles2D" parent="."]
+modulate = Color(2.5, 1.5, 1, 1)
 process_material = SubResource("ParticleProcessMaterial_ucpdj")
 texture = ExtResource("2_aitpe")
 lifetime = 0.3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xhpyo")
