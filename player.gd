@@ -25,7 +25,7 @@ func _physics_process(delta):
 		isJumping = false
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_jump") and not isJumping:
 		velocity.y = JUMP_VELOCITY
 		isJumping = true
 

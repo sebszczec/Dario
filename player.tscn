@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://player.gd" id="1_vmtgi"]
 [ext_resource type="Texture2D" uid="uid://bpna78xtweqbp" path="res://RockyWorld_v1.1/Sprites/Gino Character/PNG/idle,run,jump_sheet 2.png" id="2_vpvay"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwwdh"]
-size = Vector2(14, 35)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h4tdx"]
+height = 35.0
 
 [sub_resource type="Animation" id="Animation_pocml"]
 resource_name = "idle_right"
@@ -217,7 +217,7 @@ script = ExtResource("1_vmtgi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -17.5)
-shape = SubResource("RectangleShape2D_gwwdh")
+shape = SubResource("CapsuleShape2D_h4tdx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(12.5, -29)
