@@ -240,3 +240,6 @@ parameters/conditions/is_running = false
 parameters/Idle/blend_position = 0.003003
 parameters/Jump/blend_position = -0.647147
 parameters/Run/blend_position = -0.351351
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
