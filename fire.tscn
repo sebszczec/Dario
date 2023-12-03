@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://7xckchc52x3t"]
+[gd_scene load_steps=19 format=3 uid="uid://7xckchc52x3t"]
 
 [ext_resource type="Texture2D" uid="uid://cplnr5tc5otrd" path="res://kenney_particle_pack/fire_01.png" id="1_2s4wx"]
+[ext_resource type="Texture2D" uid="uid://dojramt7cb1sx" path="res://kenney_particle_pack/smoke_01.png" id="2_7q0wd"]
 [ext_resource type="Texture2D" uid="uid://cqijnnm73saeu" path="res://kenney_particle_pack/fire_02.png" id="2_aitpe"]
 
 [sub_resource type="Gradient" id="Gradient_f50cm"]
@@ -34,6 +35,38 @@ scale_min = 0.05
 scale_max = 0.05
 scale_curve = SubResource("CurveTexture_uhmw0")
 color_ramp = SubResource("GradientTexture1D_h8r7j")
+
+[sub_resource type="Gradient" id="Gradient_52dyf"]
+offsets = PackedFloat32Array(0.00442478, 1)
+colors = PackedColorArray(1, 0.647059, 0, 1, 1, 0.647059, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l0v7j"]
+gradient = SubResource("Gradient_52dyf")
+
+[sub_resource type="Curve" id="Curve_o3w0i"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.373541, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_30ks7"]
+curve = SubResource("Curve_o3w0i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a2jjy"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 17.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 50.0
+angular_velocity_min = 32.0
+angular_velocity_max = 32.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_max = 100.0
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_30ks7")
+color_ramp = SubResource("GradientTexture1D_l0v7j")
 
 [sub_resource type="Gradient" id="Gradient_4ssip"]
 offsets = PackedFloat32Array(0, 0.411504, 0.800885, 0.995575)
@@ -70,13 +103,16 @@ color_ramp = SubResource("GradientTexture1D_xer3x")
 [node name="Fire" type="Node2D"]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-amount = 10
 process_material = SubResource("ParticleProcessMaterial_8hbn3")
 texture = ExtResource("1_2s4wx")
 lifetime = 0.3
 
+[node name="Smoke" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_a2jjy")
+texture = ExtResource("2_7q0wd")
+lifetime = 0.45
+
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
-amount = 10
 process_material = SubResource("ParticleProcessMaterial_ucpdj")
 texture = ExtResource("2_aitpe")
 lifetime = 0.3
