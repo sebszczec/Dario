@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://7xckchc52x3t"]
+[gd_scene load_steps=27 format=3 uid="uid://7xckchc52x3t"]
 
 [ext_resource type="Texture2D" uid="uid://cplnr5tc5otrd" path="res://kenney_particle_pack/fire_01.png" id="1_2s4wx"]
 [ext_resource type="Texture2D" uid="uid://byno2tb054n34" path="res://kenney_particle_pack/trace_03.png" id="1_oa3es"]
 [ext_resource type="Texture2D" uid="uid://dojramt7cb1sx" path="res://kenney_particle_pack/smoke_01.png" id="2_7q0wd"]
 [ext_resource type="Texture2D" uid="uid://cqijnnm73saeu" path="res://kenney_particle_pack/fire_02.png" id="2_aitpe"]
+[ext_resource type="Texture2D" uid="uid://dko0r2xe33aph" path="res://kenney_particle_pack/light_01.png" id="5_onjmj"]
 
 [sub_resource type="Gradient" id="Gradient_8b7gx"]
 colors = PackedColorArray(1, 0.647059, 0, 1, 1, 0.647059, 0, 0.647059)
@@ -164,3 +165,8 @@ lifetime = 0.3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_xhpyo")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 1, 0, 1)
+texture = ExtResource("5_onjmj")
+texture_scale = 0.3
