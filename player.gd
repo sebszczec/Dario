@@ -20,7 +20,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	updateStateBytes()
+	updateStateMachine()
 	updateAnimationParameters()
 
 func _physics_process(delta):
@@ -60,7 +60,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func updateStateBytes():
+func updateStateMachine():
 	if state[GameStateByte.Attack]:
 		state[GameStateByte.Jump] = false
 		state[GameStateByte.Idle] = false
