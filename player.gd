@@ -6,7 +6,11 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+enum GameSate {Idle, Run, Jump, Attack}
+var currentState = GameSate.Idle
+
 var isJumping = false
+var isAttacking = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -28,6 +32,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_jump") and not isJumping:
 		velocity.y = JUMP_VELOCITY
 		isJumping = true
+		
+	# Handle Attack
+	if Input.is_action_pressed("ui_attack"):
+		isAttacking = true
+		
+	if Input.is_action_just_released("ui_attack"):
+		isAttacking = false
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -60,5 +71,6 @@ func updateAnimationParameters():
 		animationTree["parameters/Idle/blend_position"] = velocity.normalized().x
 		animationTree["parameters/Run/blend_position"] = velocity.normalized().x
 		animationTree["parameters/Jump/blend_position"] = velocity.normalized().x
+		animationTree["parameters/Attack/blend_position"] = velocity.normalized().x
 	
 		
