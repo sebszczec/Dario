@@ -9,9 +9,6 @@ const JUMP_VELOCITY = -400.0
 enum GameStateByte {Attack, Jump, Idle, Run}
 var state = []
 
-var isJumping = false
-var isAttacking = false
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -31,22 +28,18 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
-		isJumping = false
 		state[GameStateByte.Jump] = false
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_jump") and not isJumping:
+	if Input.is_action_just_pressed("ui_jump") and not state[GameStateByte.Jump]:
 		velocity.y = JUMP_VELOCITY
-		isJumping = true
 		state[GameStateByte.Jump] = true
 		
 	# Handle Attack
 	if Input.is_action_pressed("ui_attack"):
-		isAttacking = true
 		state[GameStateByte.Attack] = true
 		
 	if Input.is_action_just_released("ui_attack"):
-		isAttacking = false
 		state[GameStateByte.Attack] = false
 
 	# Get the input direction and handle the movement/deceleration.
@@ -77,6 +70,7 @@ func updateStateBytes():
 	if state[GameStateByte.Jump]:
 		state[GameStateByte.Idle] = false
 		state[GameStateByte.Run] = false
+
 
 func updateAnimationParameters():
 	if velocity.x != 0:
