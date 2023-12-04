@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d04jx645f8qhh"]
+[gd_scene load_steps=34 format=3 uid="uid://d04jx645f8qhh"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_vmtgi"]
 [ext_resource type="Texture2D" uid="uid://vo2o1nqup44n" path="res://RockyWorld_v1.1/Sprites/Gino Character/PNG/full.png" id="2_blp38"]
@@ -291,9 +291,93 @@ tracks/2/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_hqyb5"]
+resource_name = "attack_right"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [64, 65, 66, 67, 68, 69, 70]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o5tbb"]
+resource_name = "attack_left"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [64, 65, 66, 67, 68, 69, 70]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-22, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x5du5"]
 _data = {
 "RESET": SubResource("Animation_hmajd"),
+"attack_left": SubResource("Animation_o5tbb"),
+"attack_right": SubResource("Animation_hqyb5"),
 "idle_left": SubResource("Animation_nccl1"),
 "idle_right": SubResource("Animation_pocml"),
 "jump_left": SubResource("Animation_1r2ay"),
@@ -370,14 +454,14 @@ advance_condition = &"is_running"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mewty"]
 states/Idle/node = SubResource("AnimationNodeBlendSpace1D_hlosc")
-states/Idle/position = Vector2(349, 192)
+states/Idle/position = Vector2(172, 359)
 states/Jump/node = SubResource("AnimationNodeBlendSpace1D_wmw2j")
 states/Jump/position = Vector2(456, 85)
 states/Run/node = SubResource("AnimationNodeBlendSpace1D_o7g0w")
-states/Run/position = Vector2(558, 192)
+states/Run/position = Vector2(774, 359)
 states/Start/position = Vector2(89, 114)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_131wu"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_n4buv"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_8v3ag"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_8ofnu"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_bnji5"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_gagu5"), "Jump", "Run", SubResource("AnimationNodeStateMachineTransition_gnmsb")]
-graph_offset = Vector2(-60, 42)
+graph_offset = Vector2(-59, 42)
 
 [sub_resource type="Gradient" id="Gradient_1sfam"]
 colors = PackedColorArray(0, 0, 1, 1, 0.819444, 0.8802, 1, 1)
