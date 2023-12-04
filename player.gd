@@ -23,6 +23,7 @@ func _ready():
 	pass
 
 func _process(delta):
+	updateStateBytes()
 	updateAnimationParameters()
 
 func _physics_process(delta):
@@ -66,6 +67,17 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+func updateStateBytes():
+	if state[GameStateByte.Attack]:
+		state[GameStateByte.Jump] = false
+		state[GameStateByte.Idle] = false
+		state[GameStateByte.Run] = false
+		return
+	
+	if state[GameStateByte.Jump]:
+		state[GameStateByte.Idle] = false
+		state[GameStateByte.Run] = false
+
 func updateAnimationParameters():
 	if velocity.x != 0:
 		animationTree["parameters/Idle/blend_position"] = velocity.normalized().x
@@ -73,29 +85,11 @@ func updateAnimationParameters():
 		animationTree["parameters/Jump/blend_position"] = velocity.normalized().x
 		animationTree["parameters/Attack/blend_position"] = velocity.normalized().x
 	
-	if isAttacking:
-		animationTree["parameters/conditions/is_attacking"] = true
-		animationTree["parameters/conditions/is_jumping"] = false
-		animationTree["parameters/conditions/is_idle"] = false
-		animationTree["parameters/conditions/is_running"] = false
-		return
-	
-	animationTree["parameters/conditions/is_attacking"] = false
-	
-	if isJumping:
-		animationTree["parameters/conditions/is_jumping"] = true
-		animationTree["parameters/conditions/is_idle"] = false
-		animationTree["parameters/conditions/is_running"] = false
-		return
+	animationTree["parameters/conditions/is_attacking"] = state[GameStateByte.Attack]
+	animationTree["parameters/conditions/is_jumping"] = state[GameStateByte.Jump]
+	animationTree["parameters/conditions/is_idle"] = state[GameStateByte.Idle]
+	animationTree["parameters/conditions/is_running"] = state[GameStateByte.Run]
 
-	animationTree["parameters/conditions/is_jumping"] = false
-	if velocity.x == 0:
-		animationTree["parameters/conditions/is_idle"] = true
-		animationTree["parameters/conditions/is_running"] = false
-	else:
-		animationTree["parameters/conditions/is_idle"] = false
-		animationTree["parameters/conditions/is_running"] = true
-	
 
 	
 		
