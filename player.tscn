@@ -532,7 +532,7 @@ offset = Vector2(-22, 0)
 flip_h = true
 hframes = 32
 vframes = 3
-frame = 50
+frame = 53
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -52,25 +52,35 @@ func _physics_process(delta):
 
 
 func updateAnimationParameters():
-	if isJumping:
-		animationTree["parameters/conditions/is_jumping"] = true
-		animationTree["parameters/conditions/is_idle"] = false
-		animationTree["parameters/conditions/is_running"] = false
-	else:
-		animationTree["parameters/conditions/is_jumping"] = false
-
-		if velocity.x == 0:
-			animationTree["parameters/conditions/is_idle"] = true
-			animationTree["parameters/conditions/is_running"] = false
-		else:
-			animationTree["parameters/conditions/is_idle"] = false
-			animationTree["parameters/conditions/is_running"] = true
-	
-	
 	if velocity.x != 0:
 		animationTree["parameters/Idle/blend_position"] = velocity.normalized().x
 		animationTree["parameters/Run/blend_position"] = velocity.normalized().x
 		animationTree["parameters/Jump/blend_position"] = velocity.normalized().x
 		animationTree["parameters/Attack/blend_position"] = velocity.normalized().x
+	
+	if isAttacking:
+		animationTree["parameters/conditions/is_attacking"] = true
+		animationTree["parameters/conditions/is_jumping"] = false
+		animationTree["parameters/conditions/is_idle"] = false
+		animationTree["parameters/conditions/is_running"] = false
+		return
+	
+	animationTree["parameters/conditions/is_attacking"] = false
+	
+	if isJumping:
+		animationTree["parameters/conditions/is_jumping"] = true
+		animationTree["parameters/conditions/is_idle"] = false
+		animationTree["parameters/conditions/is_running"] = false
+		return
+
+	animationTree["parameters/conditions/is_jumping"] = false
+	if velocity.x == 0:
+		animationTree["parameters/conditions/is_idle"] = true
+		animationTree["parameters/conditions/is_running"] = false
+	else:
+		animationTree["parameters/conditions/is_idle"] = false
+		animationTree["parameters/conditions/is_running"] = true
+	
+
 	
 		
