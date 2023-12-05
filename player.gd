@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var animationTree = $AnimationTree
 @onready var animationPlayer = $AnimationPlayer
+@onready var barrier = $Barrier
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -29,6 +30,12 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	else:
 		state[GameStateByte.Jump] = false
+		
+	# Handle Shield
+	if Input.is_action_pressed("ui_shield"):
+		barrier.visible = true
+	else: 
+		barrier.visible = false
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_jump") and not state[GameStateByte.Jump]:

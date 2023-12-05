@@ -1,7 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://d04jx645f8qhh"]
+[gd_scene load_steps=43 format=3 uid="uid://d04jx645f8qhh"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_vmtgi"]
 [ext_resource type="Texture2D" uid="uid://vo2o1nqup44n" path="res://RockyWorld_v1.1/Sprites/Gino Character/PNG/full.png" id="2_blp38"]
+[ext_resource type="PackedScene" uid="uid://dfw2m05fb74h0" path="res://barrier.tscn" id="3_swvjp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h4tdx"]
 height = 35.0
@@ -558,3 +559,7 @@ position = Vector2(256, -300)
 amount = 200
 process_material = SubResource("ParticleProcessMaterial_77taj")
 lifetime = 5.0
+
+[node name="Barrier" parent="." instance=ExtResource("3_swvjp")]
+position = Vector2(2, -18)
+scale = Vector2(0.8, 0.8)

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfw2m05fb74h0"]
+
+[ext_resource type="Shader" path="res://barrier.gdshader" id="1_kguv5"]
+[ext_resource type="Texture2D" uid="uid://c06wex5e70cdn" path="res://kenney_particle_pack/circle_02.png" id="1_tgs2o"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wqfju"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uc6bg"]
+noise = SubResource("FastNoiseLite_wqfju")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7138"]
+shader = ExtResource("1_kguv5")
+shader_parameter/radius = 0.7
+shader_parameter/thickness = 0.2
+shader_parameter/color = Color(0, 0.141176, 1, 1)
+shader_parameter/brightness = 5.0
+shader_parameter/angular_speed = 2.5
+shader_parameter/radial_speed = 1.4
+shader_parameter/alpha = 0.5
+shader_parameter/noise = SubResource("NoiseTexture2D_uc6bg")
+
+[node name="Barrier" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_g7138")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_tgs2o")
