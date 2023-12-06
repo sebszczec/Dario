@@ -6896,5 +6896,6 @@ position = Vector2(630.769, 380)
 z_index = -1
 
 [node name="EvilPlant" parent="." instance=ExtResource("8_1jbuo")]
-position = Vector2(1492.31, 682.308)
+position = Vector2(492.308, 430.769)
 collision_layer = 4
+collision_mask = 3

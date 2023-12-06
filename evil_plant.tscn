@@ -41,7 +41,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_a4yy7"]
 resource_name = "Attack_left"
 length = 0.8
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -58,7 +57,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_mto8c"]
 resource_name = "Attack_right"
 length = 0.8
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -97,3 +95,5 @@ shape = SubResource("CapsuleShape2D_xo11l")
 libraries = {
 "": SubResource("AnimationLibrary_h23lu")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
