@@ -1,7 +1,42 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsnih68cu4aed"]
+[gd_scene load_steps=14 format=3 uid="uid://dsnih68cu4aed"]
 
 [ext_resource type="Script" path="res://evil_plant.gd" id="1_ad1cp"]
 [ext_resource type="Texture2D" uid="uid://bg46pqx8n5rnj" path="res://RockyWorld_v1.1/Sprites/Enemy03/enemy03_sheet.png" id="1_fdivv"]
+[ext_resource type="Texture2D" uid="uid://b2qy1cry1p7ti" path="res://kenney_particle_pack/floaty_64.png" id="3_ucunx"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nki7x"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_7cmq7"]
+offsets = PackedFloat32Array(0, 0.261062, 0.752212)
+colors = PackedColorArray(4.52429e-06, 0, 0.871864, 1, 0.578049, 0.000242772, 0.578045, 1, 0.996859, 0.883705, 0.31598, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_65fg1"]
+gradient = SubResource("Gradient_7cmq7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kwgco"]
+emission_shape = 1
+emission_sphere_radius = 16.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, -100, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 360.0
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_65fg1")
+hue_variation_min = 0.74
+hue_variation_max = 1.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xo11l"]
 height = 40.0
@@ -81,6 +116,15 @@ _data = {
 [node name="EvilPlant" type="CharacterBody2D"]
 scale = Vector2(0.996118, 1)
 script = ExtResource("1_ad1cp")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_nki7x")
+scale = Vector2(1, 1)
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_kwgco")
+texture = ExtResource("3_ucunx")
+lifetime = 1.5
+explosiveness = 0.1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.0039, -32)
