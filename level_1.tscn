@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgg0ir15m7gbi"]
+[gd_scene load_steps=12 format=3 uid="uid://dgg0ir15m7gbi"]
 
 [ext_resource type="Texture2D" uid="uid://c8vwi2e5vntye" path="res://RockyWorld_v1.1/01. Rocky Level/background1.png" id="1_n1l1h"]
 [ext_resource type="PackedScene" uid="uid://d04jx645f8qhh" path="res://player.tscn" id="1_o3j8y"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://da6wkjjuifgov" path="res://RockyWorld_v1.1/01. Rocky Level/main_lev_build.png" id="2_oaesu"]
 [ext_resource type="Texture2D" uid="uid://bq08byidx4mcf" path="res://RockyWorld_v1.1/01. Rocky Level/background3.png" id="3_idu5t"]
 [ext_resource type="Texture2D" uid="uid://6a5d170j6sda" path="res://RockyWorld_v1.1/01. Rocky Level/other_lev_build.png" id="5_auykm"]
+[ext_resource type="PackedScene" uid="uid://dsnih68cu4aed" path="res://evil_plant.tscn" id="8_1jbuo"]
 [ext_resource type="PackedScene" uid="uid://dvpv380fcaiqm" path="res://fire_with_smoke.tscn" id="9_3oqlj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a7cq1"]
@@ -6886,9 +6887,14 @@ layer_4/tile_data = PackedInt32Array(2359372, 720898, 16, 2424908, 720898, 17, 2
 
 [node name="Player" parent="." instance=ExtResource("1_o3j8y")]
 position = Vector2(224.615, 335.385)
+collision_mask = 6
 
 [node name="Torch" parent="." instance=ExtResource("9_3oqlj")]
 position = Vector2(630.769, 380)
 
 [node name="FireWithSmoke" parent="." instance=ExtResource("9_3oqlj")]
 z_index = -1
+
+[node name="EvilPlant" parent="." instance=ExtResource("8_1jbuo")]
+position = Vector2(1492.31, 682.308)
+collision_layer = 4
