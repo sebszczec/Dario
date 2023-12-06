@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://ltqqd3p4i3um"]
+[gd_scene load_steps=14 format=3 uid="uid://ltqqd3p4i3um"]
 
 [ext_resource type="Texture2D" uid="uid://dojramt7cb1sx" path="res://kenney_particle_pack/smoke_01.png" id="1_2c6w2"]
+[ext_resource type="Script" path="res://smoke.gd" id="1_qa256"]
 [ext_resource type="Texture2D" uid="uid://dplwh6j5h5vj" path="res://kenney_particle_pack/smoke_06.png" id="2_4ivcw"]
 
 [sub_resource type="Gradient" id="Gradient_w6gv6"]
@@ -66,13 +67,14 @@ scale_curve = SubResource("CurveTexture_aacmk")
 color_ramp = SubResource("GradientTexture1D_tjei2")
 
 [node name="Smoke" type="Node2D"]
+script = ExtResource("1_qa256")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Smoke1" type="GPUParticles2D" parent="."]
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_rrpd8")
 texture = ExtResource("1_2c6w2")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="Smoke2" type="GPUParticles2D" parent="."]
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_s1ado")
 texture = ExtResource("2_4ivcw")
