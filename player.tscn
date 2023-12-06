@@ -552,6 +552,7 @@ parameters/Jump/blend_position = -0.647147
 parameters/Run/blend_position = -0.351351
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -75)
 position_smoothing_enabled = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
