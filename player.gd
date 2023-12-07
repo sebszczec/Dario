@@ -86,3 +86,13 @@ func updateAnimationParameters():
 
 	
 		
+
+
+func _on_heart_box_area_entered(area):
+	if Life > 0:
+		Life = Life - 50
+	
+	if Life <= 0:
+		print("You are DEAD!")
+	
+	
