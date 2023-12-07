@@ -32,10 +32,7 @@ func _physics_process(delta):
 		state[GameStateByte.Jump] = false
 		
 	# Handle Shield
-	if Input.is_action_pressed("ui_shield"):
-		barrier.visible = true
-	else: 
-		barrier.visible = false
+	barrier.visible = Input.is_action_pressed("ui_shield")
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_jump") and not state[GameStateByte.Jump]:
@@ -43,26 +40,17 @@ func _physics_process(delta):
 		state[GameStateByte.Jump] = true
 		
 	# Handle Attack
-	if Input.is_action_pressed("ui_attack"):
-		state[GameStateByte.Attack] = true
-		
-	if Input.is_action_just_released("ui_attack"):
-		state[GameStateByte.Attack] = false
+	state[GameStateByte.Attack] = Input.is_action_pressed("ui_attack")
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	# Handle Movement
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	if velocity.x == 0:
-		state[GameStateByte.Idle] = true
-		state[GameStateByte.Run] = false
-	else:
-		state[GameStateByte.Idle] = false
-		state[GameStateByte.Run] = true
+	state[GameStateByte.Idle] = velocity.x == 0
+	state[GameStateByte.Run] = velocity.x != 0
 	
 	move_and_slide()
 
