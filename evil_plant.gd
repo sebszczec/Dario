@@ -32,14 +32,28 @@ func _physics_process(delta):
 		velocity.x = direction.x * SPEED
 	
 	move_and_slide()
+	
+	var numberOfCollisions = get_slide_collision_count()
+	if numberOfCollisions == 0:
+		return
+	
+	for collisionIndex in numberOfCollisions:
+		var collision = get_slide_collision(collisionIndex)
+		if collision.get_collider().name == "Player":
+			attack()
+			return
 
 
 var _tempAnimationNumber = 0
-func _on_directionTimer_timeout():
+func attack():
 	_tempAnimationNumber = _tempAnimationNumber + direction.x
 	direction = direction * -1
 	isMoving = false
 	animation.play(animations[_tempAnimationNumber])
+
+
+func _on_directionTimer_timeout():
+	attack()
 
 
 func _on_animation_player_animation_finished(anim_name):
