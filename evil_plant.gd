@@ -39,7 +39,7 @@ func _physics_process(delta):
 	
 	for collisionIndex in numberOfCollisions:
 		var collision = get_slide_collision(collisionIndex)
-		if collision.get_collider().name == "Player":
+		if collision.get_collider().name == "Player" and isMoving:
 			attack()
 			return
 
