@@ -53,6 +53,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_heart_box_area_entered(area):
-	isMoving = false
+	directionTimer.stop()
+	direction.x = 0
 	animation.play("Die")
 
