@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgg0ir15m7gbi"]
+[gd_scene load_steps=13 format=3 uid="uid://dgg0ir15m7gbi"]
 
 [ext_resource type="Texture2D" uid="uid://c8vwi2e5vntye" path="res://RockyWorld_v1.1/01. Rocky Level/background1.png" id="1_n1l1h"]
 [ext_resource type="PackedScene" uid="uid://d04jx645f8qhh" path="res://player.tscn" id="1_o3j8y"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://6a5d170j6sda" path="res://RockyWorld_v1.1/01. Rocky Level/other_lev_build.png" id="5_auykm"]
 [ext_resource type="PackedScene" uid="uid://dsnih68cu4aed" path="res://evil_plant.tscn" id="8_1jbuo"]
 [ext_resource type="PackedScene" uid="uid://dvpv380fcaiqm" path="res://fire_with_smoke.tscn" id="9_3oqlj"]
+[ext_resource type="Script" path="res://InfoScreen.gd" id="9_mpxtu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a7cq1"]
 texture = ExtResource("2_oaesu")
@@ -6899,3 +6900,18 @@ z_index = -1
 position = Vector2(492.308, 430.769)
 collision_layer = 4
 collision_mask = 3
+
+[node name="InfoScreen" type="Node2D" parent="."]
+script = ExtResource("9_mpxtu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="InfoScreen"]
+
+[node name="LifeLabel" type="Label" parent="InfoScreen/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 26.0
+text = "Life: "
+
+[node name="LifeValue" type="Label" parent="InfoScreen/CanvasLayer"]
+offset_left = 45.0
+offset_right = 85.0
+offset_bottom = 23.0

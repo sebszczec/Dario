@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var animationPlayer = $AnimationPlayer
 @onready var barrier = $Barrier
 
+@export_category("Character Information")
+@export var Life : int = 200
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -18,7 +21,7 @@ func _ready():
 	state.append(false) # Jump
 	state.append(true) # Idle
 	state.append(false) # Run
-	pass
+
 
 func _process(delta):
 	updateStateMachine()
@@ -30,7 +33,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	else:
 		state[GameStateByte.Jump] = false
-		
+	
 	# Handle Shield
 	barrier.visible = Input.is_action_pressed("ui_shield")
 
@@ -69,10 +72,11 @@ func updateStateMachine():
 
 func updateAnimationParameters():
 	if velocity.x != 0:
-		animationTree["parameters/Idle/blend_position"] = velocity.normalized().x
-		animationTree["parameters/Run/blend_position"] = velocity.normalized().x
-		animationTree["parameters/Jump/blend_position"] = velocity.normalized().x
-		animationTree["parameters/Attack/blend_position"] = velocity.normalized().x
+		var normal = velocity.normalized().x
+		animationTree["parameters/Idle/blend_position"] = normal
+		animationTree["parameters/Run/blend_position"] = normal
+		animationTree["parameters/Jump/blend_position"] = normal
+		animationTree["parameters/Attack/blend_position"] = normal
 	
 	animationTree["parameters/conditions/is_attacking"] = state[GameStateByte.Attack]
 	animationTree["parameters/conditions/is_jumping"] = state[GameStateByte.Jump]
