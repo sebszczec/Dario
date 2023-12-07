@@ -9,6 +9,7 @@ var directionTimer = Timer.new()
 var direction = Vector2(1, 0)
 const SPEED = 100
 var isMoving = true
+var isDead = false
 var animations = ["Attack_left", "Attack_right"]
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -65,18 +66,20 @@ func _on_directionTimer_timeout():
 
 
 func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "Die" or isDead:
+		queue_free()
+		return
+	
 	if anim_name == "Attack_left" or anim_name == "Attack_right":
 		isMoving = true
 		animation.play("Idle")
 		directionTimer.start()
 		return
 	
-	if anim_name == "Die":
-		queue_free()
-
-
+	
 @warning_ignore("unused_parameter")
 func _on_heart_box_area_entered(area):
+	isDead = true
 	directionTimer.stop()
 	direction.x = 0
 	hitAnimation.play()
