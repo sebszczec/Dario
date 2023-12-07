@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animation = $AnimationPlayer
+@onready var hitAnimation = $HitAnimation
 
 var directionTimer = Timer.new()
 
@@ -55,5 +56,6 @@ func _on_animation_player_animation_finished(anim_name):
 func _on_heart_box_area_entered(area):
 	directionTimer.stop()
 	direction.x = 0
+	hitAnimation.play()
 	animation.play("Die")
 

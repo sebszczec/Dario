@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var animationTree = $AnimationTree
 @onready var animationPlayer = $AnimationPlayer
 @onready var barrier = $Barrier
+@onready var hitAnimation = $HitAnimation
 
 @export_category("Character Information")
 @export var Life : int = 100
@@ -109,6 +110,7 @@ func updateAnimationParameters():
 
 func _on_heart_box_area_entered(area):
 	if Life > 0:
+		hitAnimation.play()
 		Life = Life - 50
 	
 	if Life <= 0:

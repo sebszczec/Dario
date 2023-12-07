@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dsnih68cu4aed"]
+[gd_scene load_steps=18 format=3 uid="uid://dsnih68cu4aed"]
 
 [ext_resource type="Script" path="res://evil_plant.gd" id="1_ad1cp"]
 [ext_resource type="Texture2D" uid="uid://bg46pqx8n5rnj" path="res://RockyWorld_v1.1/Sprites/Enemy03/enemy03_sheet.png" id="1_fdivv"]
 [ext_resource type="Texture2D" uid="uid://b2qy1cry1p7ti" path="res://kenney_particle_pack/floaty_64.png" id="3_ucunx"]
+[ext_resource type="PackedScene" uid="uid://ca0yvwxnuq22r" path="res://hit_animation.tscn" id="4_gwfku"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nki7x"]
 blend_mode = 1
@@ -325,6 +326,9 @@ position = Vector2(-10.0506, -27)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_xukw2")
 disabled = true
+
+[node name="HitAnimation" parent="." instance=ExtResource("4_gwfku")]
+position = Vector2(1.19209e-07, -20)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="HeartBox" to="." method="_on_heart_box_area_entered"]

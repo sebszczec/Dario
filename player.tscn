@@ -1,8 +1,9 @@
-[gd_scene load_steps=46 format=3 uid="uid://d04jx645f8qhh"]
+[gd_scene load_steps=47 format=3 uid="uid://d04jx645f8qhh"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_vmtgi"]
 [ext_resource type="Texture2D" uid="uid://vo2o1nqup44n" path="res://RockyWorld_v1.1/Sprites/Gino Character/PNG/full.png" id="2_blp38"]
 [ext_resource type="PackedScene" uid="uid://dfw2m05fb74h0" path="res://barrier.tscn" id="3_swvjp"]
+[ext_resource type="PackedScene" uid="uid://ca0yvwxnuq22r" path="res://hit_animation.tscn" id="4_nk4oy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h4tdx"]
 height = 35.0
@@ -676,5 +677,8 @@ collision_mask = 64
 
 [node name="HeartBoxCollisionShape" type="CollisionShape2D" parent="HeartBox"]
 shape = SubResource("CapsuleShape2D_i42iv")
+
+[node name="HitAnimation" parent="." instance=ExtResource("4_nk4oy")]
+position = Vector2(1, -17)
 
 [connection signal="area_entered" from="HeartBox" to="." method="_on_heart_box_area_entered"]
