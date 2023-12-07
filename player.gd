@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 @export_category("Character Information")
 @export var Life : int = 100
+@export var EnergyShield : int = 100
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0

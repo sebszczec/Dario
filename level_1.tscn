@@ -6911,12 +6911,24 @@ offset_bottom = 26.0
 text = "Life:"
 
 [node name="LifeValue" type="Label" parent="InfoScreen/CanvasLayer"]
-offset_left = 45.0
-offset_right = 85.0
+offset_left = 34.0
+offset_right = 74.0
 offset_bottom = 23.0
 
 [node name="RefreshTimer" type="Timer" parent="InfoScreen/CanvasLayer"]
 wait_time = 0.2
+
+[node name="EnergyShieldLabel" type="Label" parent="InfoScreen/CanvasLayer"]
+offset_top = 20.0
+offset_right = 108.0
+offset_bottom = 46.0
+text = "Energy shield:"
+
+[node name="EnergyShieldValue" type="Label" parent="InfoScreen/CanvasLayer"]
+offset_left = 110.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 43.0
 
 [node name="HitAnimation" parent="." instance=ExtResource("10_yktas")]
 

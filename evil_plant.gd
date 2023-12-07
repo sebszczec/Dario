@@ -75,6 +75,7 @@ func _on_animation_player_animation_finished(anim_name):
 		queue_free()
 
 
+@warning_ignore("unused_parameter")
 func _on_heart_box_area_entered(area):
 	directionTimer.stop()
 	direction.x = 0
