@@ -46,3 +46,13 @@ func _on_animation_player_animation_finished(anim_name):
 		isMoving = true
 		animation.play("Idle")
 		directionTimer.start()
+		return
+	
+	if anim_name == "Die":
+		queue_free()
+
+
+func _on_heart_box_area_entered(area):
+	isMoving = false
+	animation.play("Die")
+
