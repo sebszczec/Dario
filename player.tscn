@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://d04jx645f8qhh"]
+[gd_scene load_steps=46 format=3 uid="uid://d04jx645f8qhh"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_vmtgi"]
 [ext_resource type="Texture2D" uid="uid://vo2o1nqup44n" path="res://RockyWorld_v1.1/Sprites/Gino Character/PNG/full.png" id="2_blp38"]
@@ -446,8 +446,25 @@ tracks/2/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_htlwi"]
+resource_name = "Die"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x5du5"]
 _data = {
+"Die": SubResource("Animation_htlwi"),
 "RESET": SubResource("Animation_hmajd"),
 "attack_left": SubResource("Animation_o5tbb"),
 "attack_right": SubResource("Animation_hqyb5"),

@@ -5,13 +5,14 @@ extends CharacterBody2D
 @onready var barrier = $Barrier
 
 @export_category("Character Information")
-@export var Life : int = 200
+@export var Life : int = 100
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-enum GameStateByte {Attack, Jump, Idle, Run}
+enum PlayerStateByte {Attack, Jump, Idle, Run}
 var state = []
+var isDead = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -27,47 +28,69 @@ func _process(delta):
 	updateStateMachine()
 	updateAnimationParameters()
 
+
+func handle_Is_Action_Pressed(actionName):
+	if isDead == true:
+		return false
+		
+	return Input.is_action_pressed(actionName)
+
+
+func handle_Is_Action_Just_Pressed(actionName):
+	if isDead == true:
+		return false
+		
+	return Input.is_action_just_pressed(actionName)
+	
+	
+func handle_Get_Axis(actionName1, actionName2):
+	if isDead == true:
+		return Vector2(0, 0)
+		
+	return Input.get_axis(actionName1, actionName2)
+
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
-		state[GameStateByte.Jump] = false
+		state[PlayerStateByte.Jump] = false
 	
 	# Handle Shield
-	barrier.visible = Input.is_action_pressed("ui_shield")
+	barrier.visible = handle_Is_Action_Pressed("ui_shield")
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_jump") and not state[GameStateByte.Jump]:
+	if handle_Is_Action_Just_Pressed("ui_jump") and not state[PlayerStateByte.Jump]:
 		velocity.y = JUMP_VELOCITY
-		state[GameStateByte.Jump] = true
+		state[PlayerStateByte.Jump] = true
 		
 	# Handle Attack
-	state[GameStateByte.Attack] = Input.is_action_pressed("ui_attack")
+	state[PlayerStateByte.Attack] = handle_Is_Action_Pressed("ui_attack")
 
 	# Handle Movement
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = handle_Get_Axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	state[GameStateByte.Idle] = velocity.x == 0
-	state[GameStateByte.Run] = velocity.x != 0
+	state[PlayerStateByte.Idle] = velocity.x == 0
+	state[PlayerStateByte.Run] = velocity.x != 0
 	
 	move_and_slide()
 
 
 func updateStateMachine():
-	if state[GameStateByte.Attack]:
-		state[GameStateByte.Jump] = false
-		state[GameStateByte.Idle] = false
-		state[GameStateByte.Run] = false
+	if state[PlayerStateByte.Attack]:
+		state[PlayerStateByte.Jump] = false
+		state[PlayerStateByte.Idle] = false
+		state[PlayerStateByte.Run] = false
 		return
 	
-	if state[GameStateByte.Jump]:
-		state[GameStateByte.Idle] = false
-		state[GameStateByte.Run] = false
+	if state[PlayerStateByte.Jump]:
+		state[PlayerStateByte.Idle] = false
+		state[PlayerStateByte.Run] = false
 
 
 func updateAnimationParameters():
@@ -76,16 +99,12 @@ func updateAnimationParameters():
 		animationTree["parameters/Idle/blend_position"] = normal
 		animationTree["parameters/Run/blend_position"] = normal
 		animationTree["parameters/Jump/blend_position"] = normal
-		animationTree["parameters/Attack/blend_position"] = normal
+		animationTree["parameters/Attack/blend_position"] = normal	
 	
-	animationTree["parameters/conditions/is_attacking"] = state[GameStateByte.Attack]
-	animationTree["parameters/conditions/is_jumping"] = state[GameStateByte.Jump]
-	animationTree["parameters/conditions/is_idle"] = state[GameStateByte.Idle]
-	animationTree["parameters/conditions/is_running"] = state[GameStateByte.Run]
-
-
-	
-		
+	animationTree["parameters/conditions/is_attacking"] = state[PlayerStateByte.Attack]
+	animationTree["parameters/conditions/is_jumping"] = state[PlayerStateByte.Jump]
+	animationTree["parameters/conditions/is_idle"] = state[PlayerStateByte.Idle]
+	animationTree["parameters/conditions/is_running"] = state[PlayerStateByte.Run]
 
 
 func _on_heart_box_area_entered(area):
@@ -93,6 +112,8 @@ func _on_heart_box_area_entered(area):
 		Life = Life - 50
 	
 	if Life <= 0:
-		print("You are DEAD!")
+		animationTree.active = false
+		isDead = true
+		animationPlayer.play("Die")
 	
 	
