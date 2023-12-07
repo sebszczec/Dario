@@ -92,7 +92,7 @@ func _physics_process(delta):
 	HandleEnergyShield("ui_shield", delta)
 
 	# Handle Jump.
-	if handle_Is_Action_Just_Pressed("ui_jump") and not state[PlayerStateByte.Jump]:
+	if handle_Is_Action_Just_Pressed("ui_jump") and is_on_floor() and not state[PlayerStateByte.Jump]:
 		velocity.y = JUMP_VELOCITY
 		state[PlayerStateByte.Jump] = true
 		

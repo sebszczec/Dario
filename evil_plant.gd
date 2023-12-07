@@ -64,6 +64,8 @@ func changeDirection():
 
 
 func attack():
+	if isDead:
+		return
 	changeDirection()
 	isMoving = false
 	animation.play(animations[_tempAnimationNumber])
