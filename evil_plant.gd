@@ -6,7 +6,7 @@ extends CharacterBody2D
 var directionTimer = Timer.new()
 
 @export var Timeout = 1.5
-var direction = Vector2(1, 0)
+var direction = Vector2(0, 0)
 const SPEED = 100
 var isMoving = true
 var isDead = false
@@ -15,6 +15,14 @@ var animations = ["Attack_left", "Attack_right"]
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
+	var generator = RandomNumberGenerator.new()
+	var temp = generator.randi_range(-1, 1)
+	while temp == 0:
+		temp = generator.randi_range(-1, 1)
+	direction.x = temp
+	if direction.x == -1:
+		animations.reverse()
+	
 	directionTimer.wait_time = Timeout
 	directionTimer.one_shot = true
 	directionTimer.connect("timeout", _on_directionTimer_timeout)
