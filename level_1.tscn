@@ -6909,9 +6909,14 @@ script = ExtResource("9_mpxtu")
 [node name="LifeLabel" type="Label" parent="InfoScreen/CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 26.0
-text = "Life: "
+text = "Life:"
 
 [node name="LifeValue" type="Label" parent="InfoScreen/CanvasLayer"]
 offset_left = 45.0
 offset_right = 85.0
 offset_bottom = 23.0
+
+[node name="RefreshTimer" type="Timer" parent="InfoScreen/CanvasLayer"]
+wait_time = 0.2
+
+[connection signal="timeout" from="InfoScreen/CanvasLayer/RefreshTimer" to="InfoScreen" method="_on_refresh_timer_timeout"]
