@@ -617,6 +617,7 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_mewty")
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/conditions/is_attacking = false
 parameters/conditions/is_idle = false
 parameters/conditions/is_jumping = false
@@ -641,6 +642,8 @@ position = Vector2(2, -18)
 scale = Vector2(0.8, 0.8)
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
 
 [node name="HitBoxCollisionShape" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CapsuleShape2D_7ugnx")

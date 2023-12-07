@@ -10,6 +10,8 @@ const SPEED = 100
 var isMoving = true
 var animations = ["Attack_left", "Attack_right"]
 
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 func _ready():
 	directionTimer.wait_time = Timeout
 	directionTimer.one_shot = true
@@ -21,9 +23,13 @@ func _ready():
 
 
 func _physics_process(delta):
-	if not isMoving:
-		return
-	velocity = direction * SPEED
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	
+	if isMoving:
+		velocity.x = direction.x * SPEED
+	
 	move_and_slide()
 
 
