@@ -39,15 +39,23 @@ func _physics_process(delta):
 	
 	for collisionIndex in numberOfCollisions:
 		var collision = get_slide_collision(collisionIndex)
+		if collision.get_collider().name == "Barrier" and isMoving:
+			changeDirection()
+			return
+		
 		if collision.get_collider().name == "Player" and isMoving:
 			attack()
 			return
 
 
 var _tempAnimationNumber = 0
-func attack():
+func changeDirection():
 	_tempAnimationNumber = _tempAnimationNumber + direction.x
 	direction = direction * -1
+
+
+func attack():
+	changeDirection()
 	isMoving = false
 	animation.play(animations[_tempAnimationNumber])
 

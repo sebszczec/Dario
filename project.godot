@@ -48,6 +48,7 @@ ui_shield={
 2d_physics/layer_5="Enemy_HeartBox"
 2d_physics/layer_6="Player_HeartBox"
 2d_physics/layer_7="Enemy_HitBox"
+2d_physics/layer_8="Barrier"
 
 [rendering]
 

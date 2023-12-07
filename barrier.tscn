@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfw2m05fb74h0"]
+[gd_scene load_steps=8 format=3 uid="uid://dfw2m05fb74h0"]
 
 [ext_resource type="Shader" path="res://barrier.gdshader" id="1_kguv5"]
 [ext_resource type="Texture2D" uid="uid://c06wex5e70cdn" path="res://kenney_particle_pack/circle_02.png" id="1_tgs2o"]
@@ -20,10 +20,19 @@ shader_parameter/radial_speed = 1.4
 shader_parameter/alpha = 0.5
 shader_parameter/noise = SubResource("NoiseTexture2D_uc6bg")
 
-[node name="Barrier" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rg7g3"]
+radius = 40.1123
+
+[node name="Barrier" type="StaticBody2D"]
+collision_layer = 128
+collision_mask = 0
 script = ExtResource("1_wteub")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_g7138")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_tgs2o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rg7g3")
+disabled = true
