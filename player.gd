@@ -59,7 +59,7 @@ func _physics_process(delta):
 		state[PlayerStateByte.Jump] = false
 	
 	# Handle Shield
-	barrier.visible = handle_Is_Action_Pressed("ui_shield")
+	barrier.changeState(handle_Is_Action_Pressed("ui_shield"))
 
 	# Handle Jump.
 	if handle_Is_Action_Just_Pressed("ui_jump") and not state[PlayerStateByte.Jump]:
