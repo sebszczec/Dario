@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://d04jx645f8qhh"]
+[gd_scene load_steps=44 format=3 uid="uid://d04jx645f8qhh"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_vmtgi"]
 [ext_resource type="Texture2D" uid="uid://vo2o1nqup44n" path="res://RockyWorld_v1.1/Sprites/Gino Character/PNG/full.png" id="2_blp38"]
@@ -45,6 +45,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-22, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitBox/HitBoxCollisionShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitBox:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_o5tbb"]
 resource_name = "attack_left"
@@ -86,6 +110,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-22, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitBox/HitBoxCollisionShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitBox:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-22, -18)]
+}
 
 [sub_resource type="Animation" id="Animation_hqyb5"]
 resource_name = "attack_right"
@@ -126,6 +174,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitBox/HitBoxCollisionShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitBox:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(25, -18)]
 }
 
 [sub_resource type="Animation" id="Animation_nccl1"]
@@ -518,6 +590,10 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 color_ramp = SubResource("GradientTexture1D_uc1mr")
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ugnx"]
+radius = 8.0
+height = 24.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_vmtgi")
@@ -541,7 +617,6 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_mewty")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/conditions/is_attacking = false
 parameters/conditions/is_idle = false
 parameters/conditions/is_jumping = false
@@ -564,3 +639,9 @@ lifetime = 5.0
 [node name="Barrier" parent="." instance=ExtResource("3_swvjp")]
 position = Vector2(2, -18)
 scale = Vector2(0.8, 0.8)
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="HitBoxCollisionShape" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CapsuleShape2D_7ugnx")
+disabled = true
