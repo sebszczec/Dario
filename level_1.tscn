@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgg0ir15m7gbi"]
+[gd_scene load_steps=14 format=3 uid="uid://dgg0ir15m7gbi"]
 
 [ext_resource type="Texture2D" uid="uid://c8vwi2e5vntye" path="res://RockyWorld_v1.1/01. Rocky Level/background1.png" id="1_n1l1h"]
 [ext_resource type="PackedScene" uid="uid://d04jx645f8qhh" path="res://player.tscn" id="1_o3j8y"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dsnih68cu4aed" path="res://evil_plant.tscn" id="8_1jbuo"]
 [ext_resource type="PackedScene" uid="uid://dvpv380fcaiqm" path="res://fire_with_smoke.tscn" id="9_3oqlj"]
 [ext_resource type="Script" path="res://InfoScreen.gd" id="9_mpxtu"]
+[ext_resource type="PackedScene" uid="uid://i81sulhygih8" path="res://bat.tscn" id="10_2q5q7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a7cq1"]
 texture = ExtResource("2_oaesu")
@@ -6901,5 +6902,8 @@ Timeout = 1.2
 [node name="EvilPlant3" parent="." instance=ExtResource("8_1jbuo")]
 position = Vector2(904.615, 430)
 Timeout = 1.7
+
+[node name="Bat" parent="." instance=ExtResource("10_2q5q7")]
+position = Vector2(748.462, 296.923)
 
 [connection signal="timeout" from="InfoScreen/CanvasLayer/RefreshTimer" to="InfoScreen" method="_on_refresh_timer_timeout"]

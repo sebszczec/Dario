@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://i81sulhygih8"]
+
+[ext_resource type="Texture2D" uid="uid://djdoh8klyw34h" path="res://RockyWorld_v1.1/Sprites/Enemy04/32x32-bat-sprite.png" id="1_6ol45"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucc33"]
+
+[node name="Bat" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6ol45")
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ucc33")
