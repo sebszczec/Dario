@@ -148,7 +148,11 @@ parameters/conditions/IsIdle = false
 parameters/conditions/MoveLeft = false
 parameters/conditions/MoveRight = false
 
-[node name="Timer" type="Timer" parent="."]
+[node name="FlyTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FlyTimer" to="." method="_on_fly_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
