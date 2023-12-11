@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://i81sulhygih8"]
+[gd_scene load_steps=17 format=3 uid="uid://i81sulhygih8"]
 
 [ext_resource type="Texture2D" uid="uid://djdoh8klyw34h" path="res://RockyWorld_v1.1/Sprites/Enemy04/32x32-bat-sprite.png" id="1_6ol45"]
 [ext_resource type="Script" path="res://bat.gd" id="1_uhaoc"]
@@ -79,50 +79,39 @@ _data = {
 "Right": SubResource("Animation_m50wl")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o26gc"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wjkqr"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lo5en"]
 animation = &"Left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xaqr3"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m580t"]
 animation = &"Right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_6hayl"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_lo5en")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_m580t")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o26gc"]
+animation = &"Idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kpqqq"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wa558"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_61or5"]
 advance_mode = 2
-advance_condition = &"MoveLeft"
+advance_condition = &"IsFlying"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t0qub"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2iyk8"]
 advance_mode = 2
 advance_condition = &"IsIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hmk0m"]
-advance_mode = 2
-advance_condition = &"MoveRight"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d8lx3"]
-advance_mode = 2
-advance_condition = &"IsIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_etcnt"]
-advance_mode = 2
-advance_condition = &"MoveRight"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_26w2b"]
-advance_mode = 2
-advance_condition = &"MoveLeft"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yn3jd"]
+states/Fly/node = SubResource("AnimationNodeBlendSpace1D_6hayl")
+states/Fly/position = Vector2(506, 100)
 states/Idle/node = SubResource("AnimationNodeAnimation_o26gc")
 states/Idle/position = Vector2(351, 99)
-states/Left/node = SubResource("AnimationNodeAnimation_wjkqr")
-states/Left/position = Vector2(518, 46)
-states/Right/node = SubResource("AnimationNodeAnimation_xaqr3")
-states/Right/position = Vector2(518, 163)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kpqqq"), "Idle", "Left", SubResource("AnimationNodeStateMachineTransition_wa558"), "Left", "Idle", SubResource("AnimationNodeStateMachineTransition_t0qub"), "Idle", "Right", SubResource("AnimationNodeStateMachineTransition_hmk0m"), "Right", "Idle", SubResource("AnimationNodeStateMachineTransition_d8lx3"), "Left", "Right", SubResource("AnimationNodeStateMachineTransition_etcnt"), "Right", "Left", SubResource("AnimationNodeStateMachineTransition_26w2b")]
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kpqqq"), "Idle", "Fly", SubResource("AnimationNodeStateMachineTransition_61or5"), "Fly", "Idle", SubResource("AnimationNodeStateMachineTransition_2iyk8")]
 
 [node name="Bat" type="CharacterBody2D"]
 script = ExtResource("1_uhaoc")
@@ -144,9 +133,9 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_yn3jd")
 anim_player = NodePath("../AnimationPlayer")
 active = true
+parameters/conditions/IsFlying = false
 parameters/conditions/IsIdle = false
-parameters/conditions/MoveLeft = false
-parameters/conditions/MoveRight = false
+parameters/Fly/blend_position = -0.82579
 
 [node name="FlyTimer" type="Timer" parent="."]
 one_shot = true
