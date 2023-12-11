@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://i81sulhygih8"]
+[gd_scene load_steps=20 format=3 uid="uid://i81sulhygih8"]
 
 [ext_resource type="Texture2D" uid="uid://djdoh8klyw34h" path="res://RockyWorld_v1.1/Sprites/Enemy04/32x32-bat-sprite.png" id="1_6ol45"]
+[ext_resource type="Script" path="res://bat.gd" id="1_uhaoc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucc33"]
 
@@ -124,6 +125,7 @@ states/Right/position = Vector2(518, 163)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kpqqq"), "Idle", "Left", SubResource("AnimationNodeStateMachineTransition_wa558"), "Left", "Idle", SubResource("AnimationNodeStateMachineTransition_t0qub"), "Idle", "Right", SubResource("AnimationNodeStateMachineTransition_hmk0m"), "Right", "Idle", SubResource("AnimationNodeStateMachineTransition_d8lx3"), "Left", "Right", SubResource("AnimationNodeStateMachineTransition_etcnt"), "Right", "Left", SubResource("AnimationNodeStateMachineTransition_26w2b")]
 
 [node name="Bat" type="CharacterBody2D"]
+script = ExtResource("1_uhaoc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_6ol45")
@@ -145,3 +147,8 @@ active = true
 parameters/conditions/IsIdle = false
 parameters/conditions/MoveLeft = false
 parameters/conditions/MoveRight = false
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
