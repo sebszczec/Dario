@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://i81sulhygih8"]
+[gd_scene load_steps=19 format=3 uid="uid://i81sulhygih8"]
 
 [ext_resource type="Texture2D" uid="uid://djdoh8klyw34h" path="res://RockyWorld_v1.1/Sprites/Enemy04/32x32-bat-sprite.png" id="1_6ol45"]
 
@@ -78,6 +78,51 @@ _data = {
 "Right": SubResource("Animation_m50wl")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o26gc"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wjkqr"]
+animation = &"Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xaqr3"]
+animation = &"Right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kpqqq"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wa558"]
+advance_mode = 2
+advance_condition = &"MoveLeft"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t0qub"]
+advance_mode = 2
+advance_condition = &"IsIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hmk0m"]
+advance_mode = 2
+advance_condition = &"MoveRight"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d8lx3"]
+advance_mode = 2
+advance_condition = &"IsIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_etcnt"]
+advance_mode = 2
+advance_condition = &"MoveRight"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_26w2b"]
+advance_mode = 2
+advance_condition = &"MoveLeft"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yn3jd"]
+states/Idle/node = SubResource("AnimationNodeAnimation_o26gc")
+states/Idle/position = Vector2(351, 99)
+states/Left/node = SubResource("AnimationNodeAnimation_wjkqr")
+states/Left/position = Vector2(518, 46)
+states/Right/node = SubResource("AnimationNodeAnimation_xaqr3")
+states/Right/position = Vector2(518, 163)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kpqqq"), "Idle", "Left", SubResource("AnimationNodeStateMachineTransition_wa558"), "Left", "Idle", SubResource("AnimationNodeStateMachineTransition_t0qub"), "Idle", "Right", SubResource("AnimationNodeStateMachineTransition_hmk0m"), "Right", "Idle", SubResource("AnimationNodeStateMachineTransition_d8lx3"), "Left", "Right", SubResource("AnimationNodeStateMachineTransition_etcnt"), "Right", "Left", SubResource("AnimationNodeStateMachineTransition_26w2b")]
+
 [node name="Bat" type="CharacterBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -92,3 +137,11 @@ shape = SubResource("RectangleShape2D_ucc33")
 libraries = {
 "": SubResource("AnimationLibrary_mf3hr")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_yn3jd")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/conditions/IsIdle = false
+parameters/conditions/MoveLeft = false
+parameters/conditions/MoveRight = false
