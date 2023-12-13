@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://oncdm30jnqtc"]
+[gd_scene load_steps=17 format=3 uid="uid://oncdm30jnqtc"]
 
 [ext_resource type="Texture2D" uid="uid://kfwl62d8gakc" path="res://kenney_particle_pack/light_03.png" id="1_04m7p"]
 [ext_resource type="Script" path="res://fireball.gd" id="1_o72g8"]
 [ext_resource type="Texture2D" uid="uid://cplnr5tc5otrd" path="res://kenney_particle_pack/fire_01.png" id="2_m5gqq"]
 [ext_resource type="Texture2D" uid="uid://cqijnnm73saeu" path="res://kenney_particle_pack/fire_02.png" id="3_mpolw"]
+[ext_resource type="PackedScene" uid="uid://bjd8a1fs8s5hv" path="res://explosion.tscn" id="5_t2nsu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dy2v"]
 radius = 6.0
@@ -73,13 +74,13 @@ collision_layer = 256
 collision_mask = 2
 script = ExtResource("1_o72g8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_4dy2v")
-
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Ball" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0, 1)
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("1_04m7p")
+
+[node name="BallCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4dy2v")
 
 [node name="Fire1" type="GPUParticles2D" parent="."]
 amount = 30
@@ -90,3 +91,7 @@ texture = ExtResource("2_m5gqq")
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_pe022")
 texture = ExtResource("3_mpolw")
+
+[node name="Explosion" parent="." instance=ExtResource("5_t2nsu")]
+
+[connection signal="exploded" from="Explosion" to="." method="_on_explosion_exploded"]
