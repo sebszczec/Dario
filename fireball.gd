@@ -13,19 +13,24 @@ extends CharacterBody2D
 func _ready():
 	pass
 
+
 func _physics_process(delta):
 	velocity = direction * speed
 	
 	move_and_slide()
 	
 	for i in get_slide_collision_count():
-		ball.visible = false
-		ballCollision.disabled = true
-		fire1.emitting = false
-		fire2.emitting = false
+		setVisibility(false)
 		speed = 0
 		explosion.explode()
+		return
 
+
+func setVisibility(visible):
+	ball.visible = visible
+	ballCollision.disabled = !visible
+	fire1.emitting = visible
+	fire2.emitting = visible
 
 
 func _on_explosion_exploded():
