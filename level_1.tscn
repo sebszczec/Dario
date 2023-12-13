@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgg0ir15m7gbi"]
+[gd_scene load_steps=14 format=3 uid="uid://dgg0ir15m7gbi"]
 
 [ext_resource type="Texture2D" uid="uid://c8vwi2e5vntye" path="res://RockyWorld_v1.1/01. Rocky Level/background1.png" id="1_n1l1h"]
 [ext_resource type="PackedScene" uid="uid://d04jx645f8qhh" path="res://player.tscn" id="1_o3j8y"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://dvpv380fcaiqm" path="res://fire_with_smoke.tscn" id="9_3oqlj"]
 [ext_resource type="Script" path="res://InfoScreen.gd" id="9_mpxtu"]
 [ext_resource type="PackedScene" uid="uid://i81sulhygih8" path="res://bat.tscn" id="10_2q5q7"]
-[ext_resource type="PackedScene" uid="uid://oncdm30jnqtc" path="res://fireball.tscn" id="11_0qo5n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a7cq1"]
 texture = ExtResource("2_oaesu")
@@ -6908,9 +6907,5 @@ Timeout = 1.7
 position = Vector2(409.231, 253.846)
 collision_layer = 4
 collision_mask = 2
-
-[node name="Fireball" parent="." instance=ExtResource("11_0qo5n")]
-position = Vector2(379.231, 247.692)
-collision_mask = 131
 
 [connection signal="timeout" from="InfoScreen/CanvasLayer/RefreshTimer" to="InfoScreen" method="_on_refresh_timer_timeout"]

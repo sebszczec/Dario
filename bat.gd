@@ -2,23 +2,34 @@ extends CharacterBody2D
 
 @onready var flyTimer = $FlyTimer
 @onready var attackTimer = $AttackTimer
+@onready var shootingTimer = $ShootingTimer
 @onready var animationTree = $AnimationTree
 
 @export var FlyTime = 2
 @export var AttackTime = 2
+@export var ShootingDelay = 0.2
 @export var FlyingSpeed = 100
+
+var fireBallScene = preload("res://fireball.tscn")
 
 var generator = RandomNumberGenerator.new()
 var direction = Vector2(0, 0)
 var lastX = 0
 var isFlying = true
 var isColidingWithWall = false
+var numberOfFireBalls = 0
+var half = 0
+var current = 0
 
 func _ready():
 	getRandomStartDirection()
 	
+	numberOfFireBalls = AttackTime / ShootingDelay
+	half = numberOfFireBalls / 2
+	
 	flyTimer.wait_time = FlyTime
 	attackTimer.wait_time = AttackTime
+	shootingTimer.wait_time = ShootingDelay
 	
 	flyTimer.start()
 
@@ -66,6 +77,9 @@ func getRandomStartDirection():
 func attack():
 	lastX = direction.x
 	direction.x = 0
+	
+	current = 0
+	shootingTimer.start()
 
 
 func changeDirection():
@@ -74,6 +88,7 @@ func changeDirection():
 
 
 func switchToFly():
+	shootingTimer.stop()
 	changeDirection()
 	isFlying = true
 	flyTimer.start()
@@ -88,5 +103,13 @@ func switchToAttack():
 	isFlying = false
 	attackTimer.start()
 
+
 func _on_fly_timer_timeout():
 	switchToAttack()
+
+
+func _on_shooting_timer_timeout():
+	current = current + 1
+	var fireBall = fireBallScene.instantiate()
+	fireBall.direction.x = (-half + current) / 2
+	add_child(fireBall)
