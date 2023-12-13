@@ -16,16 +16,17 @@ var generator = RandomNumberGenerator.new()
 var direction = Vector2(0, 0)
 var lastX = 0
 var isFlying = true
-var isColidingWithWall = false
+var isCollidingWithWall = false
 var numberOfFireBalls = 0
-var half = 0
-var current = 0
+var halfNumberOfFireBalls = 0
+var currentFireballIndex = 0
+var fireBalls = []
 
 func _ready():
 	getRandomStartDirection()
 	
 	numberOfFireBalls = AttackTime / ShootingDelay
-	half = numberOfFireBalls / 2
+	halfNumberOfFireBalls = numberOfFireBalls / 2
 	
 	flyTimer.wait_time = FlyTime
 	attackTimer.wait_time = AttackTime
@@ -51,20 +52,20 @@ func _physics_process(delta):
 	
 	var collisionCount = get_slide_collision_count()
 	if collisionCount == 0:
-		isColidingWithWall = false
+		isCollidingWithWall = false
 	
 	var found = false
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider().name == "TileMap":
 			found = true
-			if isColidingWithWall == false:
+			if isCollidingWithWall == false:
 				flyTimer.stop()
 				switchToAttack()
 				
-			isColidingWithWall = true
+			isCollidingWithWall = true
 	
-	isColidingWithWall = found
+	isCollidingWithWall = found
 	
 	updateAnimation()
 
@@ -78,7 +79,13 @@ func attack():
 	lastX = direction.x
 	direction.x = 0
 	
-	current = 0
+	currentFireballIndex = 0
+	fireBalls.clear()
+	for i in numberOfFireBalls:
+		var fireBall = fireBallScene.instantiate()
+		fireBall.direction.x = (-halfNumberOfFireBalls + i + 1) / 2
+		fireBalls.append(fireBall)
+	
 	shootingTimer.start()
 
 
@@ -109,7 +116,6 @@ func _on_fly_timer_timeout():
 
 
 func _on_shooting_timer_timeout():
-	current = current + 1
-	var fireBall = fireBallScene.instantiate()
-	fireBall.direction.x = (-half + current) / 2
+	var fireBall = fireBalls[currentFireballIndex]
+	currentFireballIndex = currentFireballIndex + 1
 	add_child(fireBall)
