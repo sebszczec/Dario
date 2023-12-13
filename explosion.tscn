@@ -1,5 +1,80 @@
-[gd_scene format=3 uid="uid://bjd8a1fs8s5hv"]
+[gd_scene load_steps=13 format=3 uid="uid://bjd8a1fs8s5hv"]
+
+[ext_resource type="Texture2D" uid="uid://cplnr5tc5otrd" path="res://kenney_particle_pack/fire_01.png" id="1_v2xtm"]
+[ext_resource type="Texture2D" uid="uid://cqijnnm73saeu" path="res://kenney_particle_pack/fire_02.png" id="2_erhq5"]
+
+[sub_resource type="Gradient" id="Gradient_3guk2"]
+offsets = PackedFloat32Array(0, 0.79646, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2jkre"]
+gradient = SubResource("Gradient_3guk2")
+
+[sub_resource type="Curve" id="Curve_0l1kx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.498054, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_br4hs"]
+curve = SubResource("Curve_0l1kx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nnshm"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.01
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_br4hs")
+color_ramp = SubResource("GradientTexture1D_2jkre")
+
+[sub_resource type="Gradient" id="Gradient_rrjap"]
+offsets = PackedFloat32Array(0, 0.792035, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fqrib"]
+gradient = SubResource("Gradient_rrjap")
+
+[sub_resource type="Curve" id="Curve_bs6l6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.498054, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2cyhl"]
+curve = SubResource("Curve_bs6l6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ux0fc"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.01
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_2cyhl")
+color_ramp = SubResource("GradientTexture1D_fqrib")
 
 [node name="Explosion" type="Node2D"]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_nnshm")
+texture = ExtResource("1_v2xtm")
+lifetime = 0.5
+explosiveness = 1.0
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_ux0fc")
+texture = ExtResource("2_erhq5")
+lifetime = 0.5
+explosiveness = 1.0
