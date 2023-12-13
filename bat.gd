@@ -42,14 +42,18 @@ func _physics_process(delta):
 	if collisionCount == 0:
 		isColidingWithWall = false
 	
+	var found = false
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider().name == "TileMap":
+			found = true
 			if isColidingWithWall == false:
 				flyTimer.stop()
 				switchToAttack()
 				
 			isColidingWithWall = true
+	
+	isColidingWithWall = found
 	
 	updateAnimation()
 
