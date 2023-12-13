@@ -6904,6 +6904,8 @@ position = Vector2(904.615, 430)
 Timeout = 1.7
 
 [node name="Bat" parent="." instance=ExtResource("10_2q5q7")]
-position = Vector2(462.308, 234.615)
+position = Vector2(294.615, 375.385)
+collision_layer = 4
+collision_mask = 2
 
 [connection signal="timeout" from="InfoScreen/CanvasLayer/RefreshTimer" to="InfoScreen" method="_on_refresh_timer_timeout"]

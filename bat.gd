@@ -12,6 +12,7 @@ var generator = RandomNumberGenerator.new()
 var direction = Vector2(0, 0)
 var lastX = 0
 var isFlying = true
+var isColidingWithWall = false
 
 func _ready():
 	getRandomStartDirection()
@@ -37,6 +38,19 @@ func _physics_process(delta):
 	velocity.x = direction.x * FlyingSpeed
 	move_and_slide()
 	
+	var collisionCount = get_slide_collision_count()
+	if collisionCount == 0:
+		isColidingWithWall = false
+	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().name == "TileMap":
+			if isColidingWithWall == false:
+				flyTimer.stop()
+				switchToAttack()
+				
+			isColidingWithWall = true
+	
 	updateAnimation()
 
 
@@ -55,13 +69,20 @@ func changeDirection():
 	lastX = direction.x
 
 
-func _on_attack_timer_timeout():
+func switchToFly():
 	changeDirection()
 	isFlying = true
 	flyTimer.start()
 
 
-func _on_fly_timer_timeout():
+func _on_attack_timer_timeout():
+	switchToFly()
+
+
+func switchToAttack():
 	attack()
 	isFlying = false
 	attackTimer.start()
+
+func _on_fly_timer_timeout():
+	switchToAttack()
