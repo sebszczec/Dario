@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy7kidj7ghohr"]
+
+[ext_resource type="Texture2D" uid="uid://ch0238o6xjuga" path="res://kenney_particle_pack/circle_05.png" id="1_g3tu3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ditg"]
+
+[node name="Dot" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3ditg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_g3tu3")
