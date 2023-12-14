@@ -5,8 +5,8 @@ var center = Vector2(0, 0)
 const HALF_OF_LENGHT = 20
 var dots = []
 var nextIndex = [1, 2, 3, 0]
-const K = 10
-const P = 10000
+const K = 20
+const P = 500000
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,11 +45,14 @@ func  _physics_process(delta):
 		var distance = currentDot.position.distance_to(nextDot.position)
 	
 		# Calculate normal
-		currentDot.normal = currentDot.position.normalized()
-
-		# Calculate volume
-		volume += 0.5 * abs(currentDot.position.x - nextDot.position.x) * abs(currentDot.normal.x) * distance
+		var normal = Vector2((currentDot.position.y - nextDot.position.y) / distance, -(currentDot.position.x - nextDot.position.x) / distance)
+		currentDot.normal += normal
+		nextDot.normal += normal
+		#print("Normal: %f, %f" % [currentDot.normal.x, currentDot.normal.y])
 		
+		# Calculate volume
+		volume += 0.5 * abs(currentDot.position.x - nextDot.position.x) * abs(currentDot.normal.x)  * distance
+
 		# Calculate sprint force
 		var springForce : Vector2 = K * (nextDot.position - currentDot.position)	
 		currentDot.force += springForce
@@ -61,7 +64,7 @@ func  _physics_process(delta):
 		var currentDot = dots[i]
 		var nextDot = dots[nextIndex[i]]
 		var distance = currentDot.position.distance_to(nextDot.position)
-		
+
 		# Calulate presure force
 		var uVolume = 1.0 / volume
 
