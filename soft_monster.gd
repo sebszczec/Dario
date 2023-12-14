@@ -6,7 +6,7 @@ const HALF_OF_LENGHT = 20
 var dots = []
 var nextIndex = [1, 2, 3, 0]
 const K = 10
-const P = 100000
+const P = 10000
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,45 +33,40 @@ func _ready():
 	
 
 func  _physics_process(delta):
+	var volume = 0
+	
 	# Clear forces
 	for i in 4:
 		dots[i].force = Vector2(0, 0)
 	
-	# Calculate normals
-	for i in 4:
-		dots[i].normal = dots[i].position.normalized()
-	
-	# Calculate volume
-	var volume = 0
 	for i in 4:
 		var currentDot = dots[i]
 		var nextDot = dots[nextIndex[i]]
 		var distance = currentDot.position.distance_to(nextDot.position)
 	
+		# Calculate normal
+		currentDot.normal = currentDot.position.normalized()
+
+		# Calculate volume
 		volume += 0.5 * abs(currentDot.position.x - nextDot.position.x) * abs(currentDot.normal.x) * distance
 		
+		# Calculate sprint force
+		var springForce : Vector2 = K * (nextDot.position - currentDot.position)	
+		currentDot.force += springForce
+		nextDot.force -= springForce
+
 	#print("Volume: %f" % volume)
-		
-		
-	# Calulate presure
-	var uVolume = 1.0 / volume
+	
 	for i in 4:
 		var currentDot = dots[i]
 		var nextDot = dots[nextIndex[i]]
 		var distance = currentDot.position.distance_to(nextDot.position)
 		
+		# Calulate presure force
+		var uVolume = 1.0 / volume
+
 		var presure = uVolume * P * distance
-		
-		var force = currentDot.normal * presure
-		currentDot.force += force
-	
-	# Calculate sprint force
-	for i in 4:
-		var currentDot = dots[i]
-		var nextDot = dots[nextIndex[i]]
-		
-		var force : Vector2 = K * (nextDot.position - currentDot.position)	
-		currentDot.force += force
-		nextDot.force -= force
-	
-	
+
+		var presureForce = currentDot.normal * presure
+		currentDot.force += presureForce
+
